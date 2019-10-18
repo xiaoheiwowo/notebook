@@ -107,6 +107,134 @@ def after_request(response):
 
 
 
+## 参数检查
+
+```python
+import functools
+import datetime
+import re
+import json
+
+from flask import request
+
+from enum import IntEnum
+from micro_service_response_tool import custom
+
+
+# 校验参数类型
+class CheckType(IntEnum):
+    int = 0,
+    email = 1,
+    phone = 2,
+    noEmoji = 3,
+    json = 4,
+    date = 5,
+    datetime = 6,
+    float = 7,
+    password = 8,
+    time = 9,
+    other = 999,
+
+
+def check_request_params(**checks):
+    """
+    传参方法
+    args1=('args1', True, CheckType.int),
+    args2=('args2', False, CheckType.json),
+    :param checks:
+    :return:
+    """
+    def check_request_params_func(func=None):
+        @functools.wraps(func)
+        def test(*args, **kwargs):
+            errors = []
+            for key, parm in checks.items():
+                name = parm[0]
+                if request.method == 'POST':
+                    value = request.form.get(key)
+                else:
+                    value = request.args.get(key)
+                required = parm[1]
+                check = parm[2]
+                error, res = request_params_value_check(name, required, value, check)
+                kwargs[key] = res
+                if error:
+                    errors.append(error)
+
+            if errors:
+                return custom(code=777, msg=','.join(errors))
+            return func(*args, **kwargs)
+
+        return test
+
+    return check_request_params_func
+
+
+def request_params_value_check(name, required, value, check):
+    res = value
+    if required:
+        if not value and not isinstance(value, int):
+            return "%s不能为空" % name, res
+    if check == CheckType.int:
+        if value:
+            try:
+                res = int(value)
+            except Exception as e:
+                return "%s应为整数" % name, res
+    elif check == CheckType.email:
+        if value and not re.compile(r'^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$').match(value):
+            return "%s应为email格式" % name, res
+    elif check == CheckType.phone:
+        if value and not re.compile(r"^1\d{10}$").match(value):
+            return "%s应为电话号码" % name, res
+    elif check == CheckType.noEmoji:
+        if value and not re.compile(r'^[a-zA-Z0-9\u4E00-\u9FA5]+$').match(value):
+            return "%s包含非法字符" % name, res
+    elif check == CheckType.json:
+        if value:
+            try:
+                res = json.loads(value)
+            except Exception as e:
+                return "%s应为JSON格式" % name, res
+    elif check == CheckType.datetime:
+        if value:
+            try:
+                if len(value) == 16:
+                    res = datetime.strptime(value, '%Y-%m-%d %H:%M')
+                else:
+                    res = datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+            except Exception as e:
+                return "%s应为datetime:格式" % name, res
+    elif check == CheckType.date:
+        if value:
+            try:
+                res = datetime.strptime(value, '%Y-%m-%d').date()
+            except Exception as e:
+                return "%s应为date格式" % name, res
+    elif check == CheckType.time:
+        if value:
+            try:
+                if len(value) == 5:
+                    res = datetime.strptime(value, '%H:%M').time()
+                else:
+                    res = datetime.strptime(value, '%H:%M:%S').time()
+            except Exception as e:
+                return '%s应为time格式' % name, res
+    elif check == CheckType.float:
+        if value:
+            try:
+                res = float(value)
+            except Exception as e:
+                return '%s应为Float格式' % name, res
+
+    return None, res
+
+```
+
+
+
+
+
 # FLASK PROJECT
 
 

@@ -1,9 +1,10 @@
 Linux 文件系统 Ext2/3/4
 磁盘分区partition - 文件系统filesystem
 通过LVM或其他技术可以使一个分区有多个文件系统或者多个分区合成一个文件系统，所以只提文件系统，一个文件系统一般分为多个block group ，每个包含inode和block，可能有superblock的备份，在格式化时已经规划好。
-superblock:记录此 filesystem 的整体信息,包括 inode/block 的总量、使用量、剩余量, 以及文件系统的格式与相关信息等;
-inode:记录文件的属性文件权限(rwx)与文件属性(拥有者、群组、时间参数等),一个文件占用一个 inode,同时记录此文件的数据所在的 block 号码;
-block:实际记录文件的内容,若文件太大时,会占用多个 block
+
+- superblock:记录此 filesystem 的整体信息,包括 inode/block 的总量、使用量、剩余量, 以及文件系统的格式与相关信息等
+- inode:记录文件的属性文件权限(rwx)与文件属性(拥有者、群组、时间参数等),一个文件占用一个 inode,同时记录此文件的数据所在的 block 号码;
+- block:实际记录文件的内容,若文件太大时,会占用多个 block
 
 inode 128/256字节大小，除了文件属性外包含12个直接1个间接1个双间接1个三间接记录区(ext2)
 block大小 1k 2k 4k 不同大小会决定最大文件大小和总文件系统大小
@@ -52,6 +53,7 @@ du
 hard link 是在某个目录下新增一笔档名链接到某 inode 号码的关连记录
 只能链接文件
 symbolic link 相当于windows快捷方式
+
 >命令
 ln -sf 来源文件 目标文件
 
