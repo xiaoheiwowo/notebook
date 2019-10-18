@@ -4,6 +4,10 @@ Plug 'junegunn/vim-easy-align'
 Plug 'tpope/vim-commentary'
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-surround'
+" Plug 'vim-airline/vim-airline'
+" Plug 'vim-airline/vim-airline-themes'
+" 对齐线
+" Plug 'Yggdroot/indentLine'
 " if has('nvim')
 "   Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
 " else
@@ -19,8 +23,8 @@ call plug#end()
 ""将F2设置为开关NERDTree的快捷键
 map <f2> :NERDTreeToggle<cr>
 ""修改树的显示图标
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
+let g:NERDTreeDirArrowExpandable = '▶'
+let g:NERDTreeDirArrowCollapsible = '△'
 ""窗口位置
 let g:NERDTreeWinPos='right'
 ""窗口尺寸
@@ -38,6 +42,12 @@ autocmd FileType python,shell,coffee set commentstring=#\ %s
 autocmd FileType java,c,cpp set commentstring=//\ %s
 
 ""---------------------------------------------------------------------------------------------------------------------
+" vim-airline
+" 是否显示状态栏。0 表示不显示，1 表示只在多窗口时显示，2 表示显示
+" set laststatus=2  "永远显示状态栏
+" let g:airline_powerline_fonts = 1  " 支持 powerline 字体
+" let g:airline#extensions#tabline#enabled = 1 " 显示窗口tab和buffer
+""---------------------------------------------------------------------------------------------------------------------
 set nu
 set ruler
 syntax on
@@ -49,8 +59,8 @@ set shiftwidth=4 "设定自动缩进为4个字符
 set expandtab "用space替代tab的输入
 
 " 光标
-set cc=120
-highlight cc cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
+" set cc=120
+let g:indent_guides_guide_size=1
 " 光标所在的当前行高亮
 set cursorline
 highlight CursorLine   cterm=NONE ctermbg=black ctermfg=green guibg=NONE guifg=NONE
@@ -68,8 +78,6 @@ set mouse=a
 " set showcmd
 " 开启文件类型检查，并且载入与该类型对应的缩进规则(如.py 文件会去找~/.vim/indent/python.vim)
 " filetype indent on
-" 是否显示状态栏。0 表示不显示，1 表示只在多窗口时显示，2 表示显示
-set laststatus=2
 " #在状态栏显示光标的当前位置（位于哪一行哪一列）
 " set ruler
 " 光标遇到圆括号、方括号、大括号时，自动高亮对应的另一个圆括号、方括号和大括号
