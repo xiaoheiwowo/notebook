@@ -102,6 +102,7 @@ alias py='python3'
 alias python='python3'
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias typora='/Applications/Typora.app/Contents/MacOS/Typora'
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
 # export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # export LDFLAGS="-L/usr/local/opt/openssl/lib"
 # export CPPFLAGS="-I/usr/local/opt/openssl/include"
