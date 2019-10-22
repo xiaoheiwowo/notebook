@@ -103,7 +103,22 @@ alias python='python3'
 alias subl='/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl'
 alias typora='/Applications/Typora.app/Contents/MacOS/Typora'
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron'
+
+# PATH
 # export PATH="/usr/local/opt/mysql-client/bin:$PATH"
 # export LDFLAGS="-L/usr/local/opt/openssl/lib"
 # export CPPFLAGS="-I/usr/local/opt/openssl/include"
 # export PATH="/usr/local/Cellar/postgresql/11.5/bin:${PATH}"
+
+# android
+export ANDROID_HOME=/Users/xiaohei/Library/Android/sdk
+export PATH=${PATH}:${ANDROID_HOME}/tools
+export PATH=${PATH}:${ANDROID_HOME}/platform-tools
+
+JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+#/Library/Java/JavaVirtualMachines/jdk1.8.0_221.jdk/Contents/Home
+PATH=$JAVA_HOME/bin:$PATH:.
+CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
+export JAVA_HOME
+export PATH
+export CLASSPATH

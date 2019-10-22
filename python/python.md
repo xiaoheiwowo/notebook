@@ -75,6 +75,11 @@ random.shuffle(list(range(10)))
 
 ```python
 ord() / chr() ASCI 字符互转
+
+# 分割 str.partition/rpartition(str1) -> (str0, str1, str2)
+s = "http://www.baidu.com"
+host = s.partition("//")[-1]
+
 ```
 
 ## 字典方法

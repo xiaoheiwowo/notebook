@@ -25,6 +25,7 @@ update-alternatives --config python
 ```sh
 netstat -lntup  
 # 说明： l:listening   n:num   t:tcp  u:udp  p:process
+ss
 ```
 
 ```sh
@@ -72,3 +73,16 @@ sudo fc-cache -fv
 查看端口状态 ss
 ```
 
+```sh
+# 查看目录或文件大小
+du -sh ...
+```
+
+```sh
+nohup jupyter notebook --allow-root > jupyter.log 2>&1 &
+screen -S jupyter
+ctrl+a+d
+screen -ls
+screen -r
+
+```
