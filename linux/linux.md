@@ -84,5 +84,33 @@ screen -S jupyter
 ctrl+a+d
 screen -ls
 screen -r
+```
+
+```sh
+# 解压缩
+xz -d ...
+tar -xvf ...
+
+tar xvJf ...
+# 压缩
+xz -z ...
+tar -cvf ...
 
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
