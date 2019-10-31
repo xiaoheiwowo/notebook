@@ -1,4 +1,8 @@
 ```sh
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+```
+
+```sh
 # 将本机公钥传到服务器，
 ssh-copy-id -i .ssh/id_rsa.pub -p 22 ubuntu@49.234.121.203
 ```

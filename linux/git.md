@@ -95,3 +95,7 @@ git stash drop # 丢掉保存的内容
 git cherry-pick  # 命令「复制」一个提交节点并在当前分支做一次完全一样的新提交。
 ```
 
+```
+git-tips:  https://github.com/521xueweihan/git-tips
+```
+
