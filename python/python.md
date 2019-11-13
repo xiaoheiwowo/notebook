@@ -117,7 +117,22 @@ print(end, flush)
 print('\33[3A')
 ```
 
+```python
+a:="hello"
 
+f"{a=}"
+
+
+import datetime
+time = datetime.datetime.now()
+print(f'{time=!s}')
+# time=2019-07-30 16:58:00.123412
+import math
+print(f'{math.pi=!f:.2f}')  # 精确到小数点后面两位
+
+def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):
+    pass
+```
 
 
 
