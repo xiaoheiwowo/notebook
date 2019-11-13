@@ -2,6 +2,8 @@
 
 ## 移动光标
 $ 行尾 ^ 行首
+\# 上个相同单词 * 下个相同单词
+% 在括号中移动
 w 下一个单词词尾 e 下个单词词首
 b 前一个单词
 X 退格
@@ -39,3 +41,13 @@ ctrl w r
 ctrl -+<>
 ctrl C
 :tabnew :tabc :tabo :tabs :tabp :tabn gt 标签页操作
+
+整页翻页 ctrl-f ctrl-b
+f就是forword b就是backward
+
+翻半页
+ctrl-d ctlr-u
+d=down u=up
+
+滚一行
+ctrl-e ctrl-y
