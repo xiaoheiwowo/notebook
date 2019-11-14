@@ -69,8 +69,12 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(
+    git 
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+    colored-man-pages
+)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -123,3 +127,6 @@ CLASSPATH=$JAVA_HOME/lib/tools.jar:$JAVA_HOME/lib/dt.jar:.
 export JAVA_HOME
 export PATH
 export CLASSPATH
+
+
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
