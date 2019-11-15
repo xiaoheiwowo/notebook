@@ -24,7 +24,14 @@ server {
     }
     ...
 }
-
+# 转发80
+server {
+    listen 80;
+    server_name <server_ip>;
+    location / {
+        proxy_pass <server_ip>;
+    }
+}
 
 ```
 
