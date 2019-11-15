@@ -44,7 +44,7 @@ docker run -itd --name=<container_name> <image_name>
 
 # 进入
 docker exec -it <docker name/id>
-
+docker exec -ti -u root 4650e8d1bcca bash
 # 查看
 docker ps /-a
 # 启动，重启，停止，删除

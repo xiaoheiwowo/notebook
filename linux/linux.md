@@ -108,6 +108,17 @@ tar -cvf ...
 
 ```
 
+```shell
+
+curl -v/-s/-S/--trace/--trace-ascii <file> -H "Content-Type: application/json"(-G 转为GET）http://www.baidu.com -d/-F "key=value" -o <file>
+```
+
+
+
+```sh
+curl 'https://www.baidu.com/' -H 'Connection: keep-alive' -H 'Cache-Control: max-age=0' -H 'Upgrade-Insecure-Requests: 1' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36' -H 'Sec-Fetch-User: ?1' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3' -H 'Sec-Fetch-Site: none' -H 'Sec-Fetch-Mode: navigate' -H 'Accept-Encoding: gzip, deflate, br' -H 'Accept-Language: zh-CN,zh;q=0.9,en;q=0.8' -H 'Cookie: BIDUPSID=2ED602F831C9B952E536FE0ED2607203; PSTM=1568875905; BD_UPN=123253; BAIDUID=7EC8F1FEED6A913FFE786732135F3735:FG=1; BDUSS=WI2WE95SHFzelhxc0Y3UXhIOUVXVEdDUlBzZ1NWUXQya2cyMUpnN3VJMWhBNzFkRUFBQUFBJCQAAAAAAAAAAAEAAADrTpcJNzI0Njg2OTY0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGF2lV1hdpVdO; MCITY=-332%3A; BDORZ=B490B5EBF6F3CD402E515D22BCDA1598; delPer=0; BD_CK_SAM=1; PSINO=1; BD_HOME=1; session_id=1573779262555; session_name=www.baidu.com; H_PS_PSSID=1451_21109_20698_29568_29700_29220_26350; H_PS_645EC=130bsjAIWB%2F%2F3HE40pBZQlObps1%2B55xUUCQkqop9Ikm%2FwO0Qcv5Bx3yyFGs' --compressed
+```
+
 
 
 

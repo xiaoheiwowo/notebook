@@ -55,6 +55,21 @@ db.createCollection("user")
 db.user.drop()
 show tables
 db.dropDatabase()
+db.table_name.insertMany([{},{}])
+db.table_name.find().limit(2)
+db.inventory.find( {query_document}, { item: 0, status: 1 } ); // 0排除，1显示
+# INSERT
+insertOne, insertMany, updateOne, updateMany, replaceOne, deleteOne, deleteMany, findOneAndUpdate, save, bulkWrite
+# QUERY
+db.inventory.find( { $or: [ { status: "A" }, { qty: { $lt: 30 } } ] } )
+=> SELECT * FROM inventory WHERE status = "A" OR qty < 30
+
+db.inventory.find( {
+     status: "A",
+     $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]
+} )
+=> SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+db.inventory.find( { "size.h": { $lt: 15 }, "size.uom": "in", status: "D" } )
 
 ```
 
