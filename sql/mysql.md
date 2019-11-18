@@ -288,6 +288,13 @@ ELSE salary END;
 
 
 
+```
+like '%aaa%'不会使用索引而like "aaa%"可以使用索引
+索引不能含有null
+索引最左匹配
+
+```
+
 
 
 
