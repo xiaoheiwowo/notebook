@@ -40,3 +40,59 @@ SQL语句
 缓冲，预读，调度，文件组织
 ```
 
+### 数据库故障和恢复
+
+- 输入错误 程序检查
+
+- 系统错误 数据库恢复子系统 事务和日志
+
+  - 事务（ACID）
+
+    - 原子性：不可分割
+    - 一致性：事务完成后数据库状态一致，数据库的完整性没有被破坏
+    - 隔离性：多用户使用互不干扰 
+
+    ```
+    隔离级别：读未提交（Read uncommitted）、读提交（read committed）、可重复读（repeatable read）和串行化（Serializable）
+    ```
+
+    
+
+    - 持久性：事务完成后数据持久保持
+
+- 介质故障-校验、raid阵列
+
+- 灾难-远程备份
+
+```
+事务
+事务管理器
+查询管理器
+日志管理器
+恢复管理器
+
+事务的局部地址空间 <=> 缓存区管理器所管理的内存地址 <=> 磁盘
+BEGIN TRANSATION
+ROLLBACK
+COMMIT
+```
+
+```
+日志
+* <START T> 事务的开始
+* <COMMIT T> 事务成功
+* <ABORT T> 事务失败
+* <T2, Update, A, 100, 200> 跟新数据库数据
+* 检查点记录 <START CKPT T1> <END CKPT>
+
+undo 先提交，提交完成后刷新日志
+redo 先写日志
+undo/redo
+
+```
+
+```
+http://www.zsythink.net/archives/1233/
+https://www.jianshu.com/p/d829df873332
+```
+
