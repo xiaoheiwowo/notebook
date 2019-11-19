@@ -20,3 +20,4 @@ domain 域，网域，领域，范围  DNS
 credentials 资格证书
 extract 提取
 authorization 授权
+instructor 指导书 指导员 教员
