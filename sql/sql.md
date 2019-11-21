@@ -132,3 +132,18 @@ https://segmentfault.com/a/1190000004469395
 | REPEATABLE-READ  | N          | N                | Y          | N      |
 | SERIALIZABLE     | N          | N                | N          | Y      |
 
+### 事务隔离性级别的实现
+
+- 锁
+- 读写时间戳
+- 多版本和快照隔离
+- 
+
+
+
+
+
+串行调度
+
+一致性调度
+

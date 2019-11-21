@@ -119,10 +119,7 @@ print('\33[3A')
 
 ```python
 a:="hello"
-
 f"{a=}"
-
-
 import datetime
 time = datetime.datetime.now()
 print(f'{time=!s}')
@@ -135,6 +132,18 @@ def f(pos1, pos2, /, pos_or_kwd, *, kwd1, kwd2):
 ```
 
 
+
+```python
+# 捕获异常修改提示信息再返回
+try:
+	from django.core.management import execute_from_command_line
+except ImportError as exc:
+    raise ImportError(
+        "Couldn't import Django. Are you sure it's installed and "
+        "available on your PYTHONPATH environment variable? Did you "
+        "forget to activate a virtual environment?"
+    ) from exc
+```
 
 
 
