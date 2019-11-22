@@ -10,7 +10,7 @@ curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
 
 ```sh
 # 将本机公钥传到服务器，
-ssh-copy-id -i .ssh/id_rsa.pub -p 22 ubuntu@49.234.121.203
+ssh-copy-id (-i .ssh/id_rsa.pub -p 22) ubuntu@49.234.121.203
 ```
 
 ```sh
@@ -178,7 +178,7 @@ unzip file.zip //解压zip
 ```shell
 
 
-curl -v/-s/-S/--trace/--trace-ascii <file> -H "Content-Type: application/json"(-G 转为GET）http://www.baidu.com -d/-F "key=value" -o <file>
+curl -v/-s/-S/--trace/--trace-ascii(保存文件) <file> -H "Content-Type: application/json"(-G 转为GET）http://www.baidu.com -d/-F "key=value" -o <file>
 ```
 
 

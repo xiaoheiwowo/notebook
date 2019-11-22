@@ -106,6 +106,19 @@ sys.path.append(os.path.abspath('.'))
 ```python
 # 装饰器
 from functiontools import wraps # 修改__name__等属性
+
+# login
+def login_required(func):
+    @wraps(func)
+    def wrapper():
+		pass
+    return wrapper
+
+# __wrapped__
+@api.route('/index')
+def index():
+    pass
+index.__wrapped__ 去掉一层装饰器
 ```
 
 ```python
