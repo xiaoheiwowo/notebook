@@ -80,6 +80,7 @@ sudo fc-cache -fv
 ```sh
 抓包 tcpdump -i lo port 23232 and host ...
 查看端口状态 lsof -i tcp:23232
+ lsof -i:5000
 查看端口状态 ss
 ```
 
