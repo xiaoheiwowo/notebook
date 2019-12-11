@@ -43,6 +43,33 @@ def create_app():
 ```
 
 ```python
+class BaseModel(AbstractConcreteBase, db.Model, JSONBaseMixin):
+    __abstract__ = True
+
+    create_time = db.Column(db.DateTime, server_default=func.now(), default=datetime.now, index=True)
+    timestamp = db.Column(db.Integer, default=time.time, index=True)
+    is_valid = db.Column(db.Boolean, default=True, index=True)
+    update_time = db.Column(db.DateTime, server_default=func.now(), default=datetime.now, onupdate=datetime.now,
+                            index=True)
+
+    @declared_attr
+    def __tablename__(cls):
+        return cls.__name__.lower()
+
+
+class BaseModelIntPK(BaseModel):
+    __abstract__ = True
+    object_id = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+
+
+class BaseModelUUIDPK(BaseModel):
+    __abstract__ = True
+    object_id = db.Column(db.String(32), default=gen_id, primary_key=True)
+
+```
+
+
+```python
 # sqlalchemy.sql.expression.case
 def get_enterprise_member_count(enterprise_ids):
     # CASE usr.enterprise_id WHEN :param_1 THEN :param_2 WHEN :param_3 THEN :param_4 END
@@ -73,3 +100,131 @@ case(value=emp.c.type,
      })
 ```
 
+### relationship
+
+- 一对多
+
+```python
+# 一个A对多个B
+class A(Model):
+    __tablename__ = "a"
+    id = Colume(Integer, primary_key=True)
+    # 1单向
+    bs = relationship("B")
+    # 2双向
+    bs = relationship("B", back_populates="a")
+    # 3双向
+    bs = relationship("B", backref="a")
+# 写在类外面
+A.bs = relationship("B", backref="a")
+class B(Model):
+    __tablename__ = "b"
+    id = Column(Integer, primary_key=True)
+    a_id = Column(Integer, ForeignKey("a.id"))
+    # 2双向
+    a = relationship("A", back_populates="bs")
+```
+
+
+
+- 多对一
+
+```python
+# 多个A对一个B
+class A(Model):
+    __tablename__ = "a"
+    id = Colume(Integer, primary_key=True)
+    b_id = Column(Integer, ForeignKey("b.id"))
+    # 1单向
+    b = relationship("B")
+    # 2双向
+    b = relationship("B", back_populates="a")
+    # 3双向
+    b = relationship("B", backref="as", foreign_keys=[b_id])
+    foreign_keys="[b_id]"/"b_id"
+# 写在类外面
+A.b = relationship("B", backref="as")
+class B(Model):
+    __tablename__ = "b"
+    id = Column(Integer, primary_key=True)
+    # 2双向
+    as = relationship("A", back_populates="b")
+```
+
+
+
+- 一对一
+
+```python
+# 一对一是一对多或多对一的特殊情况，在哪个表中加外键哪个表就是一，关系加上uselist参数
+# 一个A对一个B
+class A(Model):
+    __tablename__ = "a"
+    id = Colume(Integer, primary_key=True)
+    # 2双向
+    b = relationship("B", back_populates="a", uselist=False)
+    # 3双向
+    b = relationship("B", backref=backref("a", uselist=False))
+class B(Model):
+    __tablename__ = "b"
+    id = Column(Integer, primary_key=True)
+    a_id = Column(Integer, ForeignKey("a.id"))
+    # 2双向
+    a = relationship("A", back_populates="b")
+```
+
+
+
+- 多对多
+
+```python
+# 多对多需要在两个表中间增加中间表实现，relationship通过增加secondary参数实现
+class A(Model):
+    __tablename__ = "a"
+    id = Colume(Integer, primary_key=True)
+    # 2使用populates
+    bs = relationship("B", secondary=c, back_populates="as")
+    # 3使用backref
+    bs = relationship("B", secondary=c, backref="as")
+    
+class B(Model):
+    __tablename__ = "b"
+    id = Column(Integer, primary_key=True)
+    # 2使用populates
+	as = relationship("A", secondary=c, back_populates="bs")
+    
+c = Table(
+    'c', 
+    Column("a_id", Integer, ForeignKey("a.id")),
+    Column("b_id", Integer, ForeignKey("b.id")),
+)
+# 删除(自动处理中间表) (级联, on delete cascade)
+qurey_a.bs.remove(someb)
+
+
+### 关联对象 多对多关系
+“”“
+使用class声明新表代替Table()
+```
+
+- 邻接表关系
+
+```python
+# 简单邻接表，表中有一个外键指向自己
+class Node(Model):
+    __tablename__ "node"
+    id = Column(Integer, primary_key=True)
+    parent_id = Column(Integer, ForeignKey("node.id"))
+    # 单向，默认一对多关系
+    children = relationship("Node")
+    # 反向，通过remote_side增加多对一关系
+    parent = relationship("Node", remote_side=[id])
+    # 双向 使用backref
+    children = relationship("Node", backref=backref("parent", remote_side=[id]), lazy="joined", join_dep=2)
+```
+
+
+
+
+
+邻接表（父id），路径枚举（存路径），嵌套集（左右值），闭包表（节点表+关系表）
