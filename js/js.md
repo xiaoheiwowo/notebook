@@ -37,3 +37,9 @@ const b = {
 
 ```
 
+
+
+```js
+// reduce map filter
+```
+

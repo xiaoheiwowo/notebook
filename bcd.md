@@ -31,6 +31,8 @@ vehicle 车辆
 
 
 
+
+
 boostn.提高；增长；帮助；激励;v.使增长；使兴旺；偷窃;
 collaborate vi. 合作,通敌
 account n.账，账目； 存款； 记述，报告； 理由vi.解释； 导致； 报账vt.认为； 把…视作
@@ -77,8 +79,6 @@ virtual adj. 虚拟的；有效的；实质上的，事实上的
 virtue n. 美德,优点;贞操
 subsequent adj. 随后的,后来的
 significant adj. 有意义的, 意味深长的; 相当数量的; 重要的, 重大的n. (复)有意义的事物; 标志
-scan vt. 扫描；浏览；细看；详细调查；标出格律vi. 扫描；扫掠n. 扫描；浏览；审视；细看
-global adj. 全球性的, 全局的
 consistent adj. 始终如一的, 一致的, 坚持的
 valleyn. (山)谷；流域
 scandal n. 丑闻,中伤,反感,耻辱
@@ -89,6 +89,5 @@ valid adj. 有确实根据的; 有效的; 正当的, 合法的
 capture n. 抓取,战利品,捕获之物vt. 抓取,获得,迷住
 ban n. 禁令v. 禁止vt. 禁止,取缔
 advertisementn.广告；公告；登广告
-focus n. 焦点, 焦距v. 集中, 聚集, 使集中
 forbid vt. 禁止,妨碍, 阻止
 isolate adj. 孤立的 v. 隔离,孤立 vt. 使隔离,使孤立
