@@ -110,15 +110,54 @@
                 <option value="3">3</option>
             </select>
         </div>
+
+        <div>
+            <!-- 使用组件 -->
+            <cpnp></cpnp>
+        </div>
     </div>
+
+    <!-- 组件分离写法 -->
+    <script type="text/x-template" id="cpn"></script>
+    <template id="cpn"></template>
+
 
     <script>
         // 数组的响应式修改方法
         // push/pop/shift/unshift/splice/sort/reverse
-        // Vue.set([], index, value)
+        // Vue.set([], index, value)    
+
+        // 1创建组件构造器 
+        const cpnC = Vue.extend({
+            template: "<div>my-component</div>"
+        });
+        const cpnP = Vue.extend({
+            template: "<div><h2>parent</h2><cpn></cpn></div>",
+            components: {
+                cpn: cpnC,
+            },
+            // 组件的data是一个函数，返回一个包含变量的对象。每次实例化调用函数返回一个新的对象，方便组件复用
+            data() {
+                return {
+                    title: "title",
+                }
+            },
+            methods: {
+
+            }
+        });
+        // 2注册全局组件
+        Vue.components("cpn", cpnC);
+
+        // 创建并注册
+        Vue.components("cpn", {
+            template: "<div>asdf</div>"
+        })
 
         const v = new Vue({
             el: "#app",
+
+            // 变量
             data: {
                 msg: "hello",
                 a: 123,
@@ -133,11 +172,15 @@
                 selected: "1",
                 selecteds: [],
             },
+
+            // 方法
             methods: {
                 fun() {
                     alert("fun")
                 }
             },
+
+            // 计算属性
             computed: {
                 attr: function() {
                     return value
@@ -147,11 +190,19 @@
                     get: function() {}
                 }
             },
+
+            // 过滤器
             filters: {
                 showPrice(price) {
                     return "¥" + price.toFixed(2)
                 }
-            }
+            },
+
+            // 3注册局部组件
+            components: {
+                cpnp: cpnP,
+                cpn2: "#cpn"
+            },
         });
     </script>
 </body>
