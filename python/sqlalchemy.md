@@ -228,3 +228,13 @@ class Node(Model):
 
 
 邻接表（父id），路径枚举（存路径），嵌套集（左右值），闭包表（节点表+关系表）
+
+```python
+lazy参数
+默认 返回查询结果
+dynamic 返回查询，后边能接filter
+joined
+subquery
+select
+```
+
