@@ -151,7 +151,29 @@
 
         // 创建并注册
         Vue.components("cpn", {
-            template: "<div>asdf</div>"
+            template: "<div>asdf</div>",
+            // 通过 props 父传子
+            props: {
+                // 
+                prop1: Number,
+                prop2: [Number, String],
+                prop3: {
+                    type: Array,
+                    default: [],
+                    required: true,
+                },
+                prop4: {
+                    type: Object,
+                    default: function () {
+                        return { msg: "hello" }
+                    }
+                },
+                prop5: {
+                    validator: function (value) {
+                        return ["success", "warning", "danger"].indexOf(value) !== -1
+                    }
+                }
+            }
         })
 
         const v = new Vue({
@@ -167,7 +189,7 @@
                 l: [1, 3, 4],
                 sex: "",
                 isAgree: false,
-                options = ["篮球", "足球", "羽毛球", "乒乓球", "网球"],
+                options =["篮球", "足球", "羽毛球", "乒乓球", "网球"],
                 hobbies: [],
                 selected: "1",
                 selecteds: [],
@@ -182,12 +204,12 @@
 
             // 计算属性
             computed: {
-                attr: function() {
+                attr: function () {
                     return value
                 },
                 attr2: {
-                    set: function(value) {},
-                    get: function() {}
+                    set: function (value) { },
+                    get: function () { }
                 }
             },
 
