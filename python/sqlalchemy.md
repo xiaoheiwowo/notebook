@@ -232,9 +232,11 @@ class Node(Model):
 ```python
 lazy参数
 默认 返回查询结果
-dynamic 返回查询，后边能接filter
-joined
-subquery
-select
+dynamic 返回查询，后边能接filter，多次动态查询，
+joined 返回查询结果，使用联结
+subquery 返回查询结果，使用subquery
+select 返回查询结果
+
+https://www.jianshu.com/p/8427da16729a
 ```
 
