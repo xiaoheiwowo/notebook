@@ -63,6 +63,3 @@ https://www.cnblogs.com/aspirant/p/9214485.html
 - 所有叶节点构成双向链表，便于直接遍历数据，范围查询
 - 减少磁盘IO
 - 树的维护：插入，删除
-
-
-
