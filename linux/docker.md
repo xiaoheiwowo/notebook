@@ -61,6 +61,12 @@ docker run -itd -v <host dir>:<docker dir>
 docker cp <host dir file_name> <docker name>:<docker dir file_name>
 # 容器互联
 docker run -itd --lind 要关联的容器名字:容器在被关联容器中的别名
+
+# 获取容器/镜像的元数据
+docker inspect <id/name>
+# docker log
+docker logs <id/name>
+
 ```
 
 ## 仓库

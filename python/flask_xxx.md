@@ -184,3 +184,54 @@ class ApiDurationTool(object):
             return response
 ```
 
+
+
+## Flask-ES
+
+```python
+# flask 使用 es
+from flask_elasticsearch import FlaskElasticsearch
+from elasticsearch_dsl.connections import connections
+from elasticsearch_dsl import Document, Date, Integer, Keyword, Text
+
+# models
+class Example(Document):
+    date = Date()
+    str = Text()
+    int = Integer()
+
+    class Index:
+        name = 'example'
+        settings = {
+          "number_of_shards": 2,
+        }
+
+    def save(self, ** kwargs):
+        return super(Example, self).save(** kwargs)
+
+# create
+e = Example()
+e.date = datetime.now()
+e.str = ""
+e.int = 33
+e.save()
+
+# search
+e = Example.search().query(
+    "range", **{"date":{"gte", start, "lte": end}}
+).query( 
+    "match_phrase", str=""
+).sort("-date").to_dict()
+
+# run
+es = FlaskElasticsearc()
+app = Flask(__name__)
+es.init_app(app)
+connections.create_connection(host="localhost:9100")
+
+app.run
+```
+
+
+
+## ES Api
