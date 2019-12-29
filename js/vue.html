@@ -68,13 +68,12 @@
         <!-- 过滤器 -->
         <p>{{price | showPrice}}</p>
 
-
         <p v-for="i in l">{{i}}</p>
-
-        <!-- v-model 双向绑定 -->
         <input type="text" v-model.lazy\number\trim="msg">
         <!-- 修饰符 lazy 失去焦点触发/number 改为数字类型/trim 删除空格-->
         <!-- <input type="text" v-bind:value="msg" v-on:input="msg = $event.target.value"> -->
+
+        <!-- v-model 双向绑定 -->
         <label for="male">
             // 互斥 name/v-model 表单提交一个
             <input type="redio" id="male" name="sex" value="男" v-model="sex">男
@@ -113,7 +112,7 @@
 
         <div>
             <!-- 使用组件 -->
-            <cpnp></cpnp>
+            <cpn ></cpn>
         </div>
     </div>
 
