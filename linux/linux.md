@@ -4,7 +4,7 @@ curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
 # ohmyzsh
 sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 # vim-plug
-curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 ```
 
@@ -219,7 +219,9 @@ awk -F ':[<' '{ NR % 2 == 1 }  {print NR ") " toupper($1)}' /etc/passwd
 
 
 
-
+```
+centos网络相关设置文件 /etc/sysconfig/network-scripts/ifcfg-ens33
+```
 
 
 
