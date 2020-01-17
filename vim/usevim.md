@@ -51,3 +51,13 @@ d=down u=up
 
 滚一行
 ctrl-e ctrl-y
+
+替换
+```shell
+:% s/old/new/gc
+```
+
+覆盖插入
+s
+
+%在配对的括号之间移动
