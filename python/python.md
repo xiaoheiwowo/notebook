@@ -160,4 +160,13 @@ except ImportError as exc:
 
 
 
+```python
+assert False, ValueError("assert")
+# =>
+if False:
+    raise ValueError("assert")
+```
 
+
+
+dis 包 转换字节码

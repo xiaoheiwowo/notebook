@@ -8,7 +8,7 @@
     - **可以作为参数传递给函数**
     - **可以当做函数的返回值**
 - type/object/class的关系
-  - type > class > obj
+  - type -> class -> obj
   - 所有类继承自object
 
 ```python
@@ -86,6 +86,26 @@ a = A([1, 2, 3, 4, 6])
 for i in a:
     print(i)
 
+# __setitem__
+class Foo(object):
+    def __init__(self):
+        self.name = "boo"
+    def __getitem__(self, item):
+        print("调用__getitem__方法了")
+        if item in self.__dict__:
+            return self.__dict__[item]
+    def __setitem__(self, key, value):
+        print("调用__setitem__方法了")
+        self.__dict__[key] = value
+    def __delitem__(self, key):
+        print("调用__delitem__方法了")
+        del self.__dict__[key]
+
+f = Foo()
+ret = f['name']
+f['mmm'] = print
+del f['mmm']
+print(ret)
 ```
 
 
@@ -113,11 +133,11 @@ for i in a:
   - 数学运算
 ```python
 # 一元运算符
-__neg__, __pos__, __abs__
+__neg__ -, __pos__ +, __abs__ abs()
 # 二元运算符
-__lt__, __le__, __eq__, __ne__, __gt__, __ge__
+__lt__ <, __le__ <=, __eq__ == , __ne__ !=, __gt__ >, __ge__ >=
 # 算数运算符
-__add__, __sub__
+__add__ +, __sub__ -, __mul__ *, __truediv__ /, __floordiv__ //, __mod__ %, __divmod__ divmod(), __pow__ ** pow(), __round__ round()
 # 反向算数运算符
 # 增量赋值算数运算符
 # 位运算符
@@ -142,7 +162,7 @@ __add__, __sub__
 
 
 
-- 抽象基类abc模块，不能实例化
+- 抽象基类abc模块，不能实例化，像接口
     - 继承抽象基类，必须实现指定方法
     - 可以做类型检查isinstance(a, AbsType)
 
@@ -212,3 +232,256 @@ l.__dict__ # 异常
 - bisect管理可排序序列
 - 什么时候不应该使用列表
 - 列表推导式，生成器表达式，字典推导式
+
+
+
+# 元类编程
+
+- Property 动态属性
+    - 计算属性 @property装饰器
+    - @p.setter装饰器，赋值
+
+- `__getattr__,  __getattribute__`魔法函数
+    - getattr 在查找不到属性的时候调用
+    - getattribute 更底层，取属性默认调用
+- 属性描述符和属性查找过程
+    - 属性描述符，实现 `__get__ / __set__ / __delete__` 方法
+    - 数据描述符 get和set
+    - 非数据描述符 只有get
+    - **属性查找过程** user.age  == getattr(user, "age")
+        1. 首先调用getattribute，描述符发送在getattribute内
+            1. 如果是age出现在User或基类的\_\_dict\_\_中，且age是data descriptor，那么调用数据描述符的get方法
+            2. 如果age出现在user对象的\_\_dict\_\_中，那么直接返回obj.\_\_dict\_\_["age"]
+            3. 如果是age出现在User或基类的\_\_dict\_\_中
+                1. 如果age是non-data descriptor 那么调用get方法
+                2. 否则返回User.\_\_dict\_\_["age"]
+        2. 如果定义了getattr方法，在getattribute方法抛出AttirbuteError异常后调用getattr方法，
+        3. 如果也没有getattr方法，抛出AttributeError异常
+    - tip: 如果定义了数据描述符，但是通过user.\_\_dict\_\_["age"] = 30 赋值，这是调用数据描述符的get方法无法获取到值，会抛出AttributeError异常
+
+```python
+import numbers
+
+# 数据描述符
+class IntFiled:
+    def __get__(self, instance, owner):
+        try:
+            return self.value
+        except AttributeError as e:
+            return instance.__dict__
+        pass
+
+    def __set__(self, instance, value):
+        if not isinstance(value, numbers.Integral):
+            raise ValueError("value is not int")
+        self.value = value
+
+    def __delete__(self, instance):
+        pass
+
+# 非数据描述符
+class NonIntField:
+    def __get__(self, instance, owner):
+        return "non"
+
+
+class User:
+    age = NonIntField()
+    i = IntFiled()
+
+    def __getattribute__(self, item):
+        print(item)
+        raise AttributeError
+
+    def __getattr__(self, item):
+        return 44
+
+
+if __name__ == '__main__':
+    u = User()
+    u.age = 109
+    # u.__dict__["age"] = 30
+    u.i = 23
+    print(u.age)
+    print(getattr(u, "i"))
+
+```
+
+
+
+- `__new__, __init__`
+    - New 是类方法 控制对象生成过程，在生成对象之前
+    - init 实例方法，用来完善对象
+    - 如果new不返会对象，init不执行。 `retrun super().__new__(cls)`
+- 自定义元类, 创建类的类(type类)
+    - 类实例化过程：首先寻找mateclass，通过mateclass创建类，继承使用基类mateclass
+    - 没有指定mateclass默认使用type创建类
+    - 给一个类指定元类后就可以在元类中定义new方法控制类的实例化，在自己内部不需要重写new方法
+- 元类实现简单的orm
+
+```python
+# 数据描述符
+class Field:
+    def __init__(self, column=None):
+        self._value = None
+        self.column = column
+
+    def __get__(self, instance, owner):
+        return self._value
+
+
+class CharField(Field):
+    def __init__(self, column=None, max_len=None):
+        self.max_len = max_len
+        super(CharField, self).__init__(column)
+
+    def __set__(self, instance, value):
+        if not isinstance(value, str):
+            raise ValueError("Not str")
+        self._value = value
+
+
+class IntField(Field):
+    def __set__(self, instance, value):
+        if not isinstance(value, int):
+            raise ValueError("Not int")
+        self._value = value
+
+
+# Model
+class ModelMeta(type):
+    def __new__(cls, name, bases, attrs, **kwargs):
+        # type(name, bases, attrs_dict) -> a new type
+        if name == "BaseModel":
+            return super().__new__(cls, name, bases, attrs, **kwargs)
+        attrs["fields"] = {}
+        attrs["_meta"] = {}
+        for k, v in attrs.items():
+            if isinstance(v, Field):
+                attrs["fields"][k] = v
+        attr_meta = attrs.get("Meta")
+        if hasattr(attr_meta, "db_table"):
+            attrs["_meta"]["db_table"] = attr_meta.db_table
+        else:
+            attrs["_meta"]["db_table"] = name.lower()
+        del attrs["Meta"]
+        return super().__new__(cls, name, bases, attrs, **kwargs)
+
+
+class BaseModel(metaclass=ModelMeta):
+    def __init__(self, *args, **kwargs):
+        for k, v in kwargs.items():
+            setattr(self, k, v)
+        super().__init__()
+
+    def save(self):
+        fields = [k for k, v in self.fields.items()]
+        values = [v._value for k, v in self.fields.items()]
+        print("sql save:", self._meta["db_table"], fields, values)
+
+
+class User(BaseModel):
+    name = CharField(column="name", max_len=100)
+    age = IntField(column="age")
+
+    class Meta:
+        db_table = "users"
+
+
+if __name__ == '__main__':
+    u = User(name="xiaohei", age=12)
+    u.save()
+
+```
+
+
+
+# Socket编程(基础)
+
+- HTTP，Socket，TCP的概念
+- socket和server实现通信
+- socket实现聊天和多用户连接
+
+```python
+import socket
+import threading
+
+# 服务端代码
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.bind("localhost", 9090)
+server.listen()
+
+
+def handle_sock(sock, addr):
+    data = sock.recv(1024)
+    print(data.decode("utf8"))
+    sock.send(bytes(data, "utf8"))
+
+
+while True:
+    sock, addr = server.accept()
+    new_thread = threading.Thread(target=handle_sock, args=(sock, addr))
+    new_thread.start()
+
+# 客户端代码
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client.connect(("localhost", 9090))
+while True:
+    ipt = input()
+    client.send(bytes(ipt, "utf8"))
+    data = client.rect(1024)
+    print(data.decode("utf8"))
+
+```
+
+
+
+- socket模拟http请求
+
+```python
+import socket
+
+from urllib.parse import urlparse
+
+def get_url(url):
+    url = urlparse(url)
+    host = url.netloc
+    path = url.path
+    if path == "":
+        path = "/"
+    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client.connect((host, 80))
+
+    client.send("GET {} HTTP/1.1\r\nHost:{}\r\nConnection:close\r\n\r\n".format(path, host).encode("utf8"))
+
+    data = b""
+    while True:
+        d = client.recv(1024)
+        if d:
+            data += d
+        else:
+            break
+
+    data = data.decode("utf-8").split("\r\n\r\n")[1]
+    print(data)
+    client.close()
+
+
+if __name__ == '__main__':
+    get_url("http://www.baidu.com")
+```
+
+
+
+# 多线程 多进程
+
+- GIL (global interpreter lock) 全局解释器锁 cpython （pypy去gil）
+    - 同一时刻只有一个线程运行在一个cpu上执行字节码，无法将多个线程放到多个cpu上运行
+    - 执行一个线程的字节码一定数量或时间释放，使其他线程可以运行
+    - IO操作释放，sleep释放
+- 多线程
+- 线程通信 Queue
+- 线程同步 Lock、RLock、semaphores、Condition
+- consurrent线程池编码
+- 多进程编程 multiprocessing
+- 进程通信

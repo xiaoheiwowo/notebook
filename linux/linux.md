@@ -177,8 +177,6 @@ unzip file.zip //解压zip
 ## curl
 
 ```shell
-
-
 curl -v/-s/-S/--trace/--trace-ascii(保存文件) <file> -H "Content-Type: application/json"(-G 转为GET）http://www.baidu.com -d/-F "key=value" -o <file>
 ```
 
