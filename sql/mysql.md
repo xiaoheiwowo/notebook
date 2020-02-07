@@ -94,6 +94,7 @@ TRUNCATE user; # 清空表,id从1开始
 (SHOW VARIABLES LIKE '%char%';
 SET NAMES gbk; 临时改编码
 # 永久改配置文件 utf8 -> gbk)
+
 ```
 
 
@@ -138,6 +139,15 @@ select* from table；
 连接查询, where inner join where /on ///left join on /// right join on
 联合查询union all 连接两条select语句，两个查询语句字段数量必须相同
 子查询
+SELECT newapply.object_id FROM newapply LEFT JOIN meeting_room ON newapply.room_id = meeting_room.object_id;
+```
+
+
+
+```mysql
+# Json 
+update templatebase set form_info = json_set(form_info,"$[2].title_first","会议主题") where types=3;
+SELECT form_info->"$[2].title_first" from templatebase WHERE types = 3;
 ```
 
 
@@ -301,3 +311,4 @@ like '%aaa%'不会使用索引而like "aaa%"可以使用索引
 - 数据库和数据库实例的区别
     - 数据库：文件（磁盘上的，或内存中的）
     - 数据库实例：后台线程和一个共享内存区
+
