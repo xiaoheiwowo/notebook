@@ -452,3 +452,6 @@ python manager.py db migrate # 生成迁移脚本，可以手动修改
 python manager.py db upgrade/downgrade # 执行迁移
 # Tip: 只有第一次需要init，执行前需要删除alembic_version中的版本号
 ```
+
+
+

@@ -170,3 +170,17 @@ if False:
 
 
 dis 包 转换字节码
+
+
+
+## nose nosetests
+
+```shell
+# 命令
+nosetests  –h # 查看所有nose相关命令
+nosetests –s	# 执行并捕获输出
+nosetests –with-xunit	# 输出xml结果报告
+nosetests -v: # 查看nose的运行信息和调试信息 
+nosetests -w 	# 目录：指定一个目录运行测试
+```
+

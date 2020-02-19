@@ -297,6 +297,12 @@ like '%aaa%'不会使用索引而like "aaa%"可以使用索引
 
 
 
+```sql
+# 设置主键自增
+set @@auto_increment_offset = 1;     -- 起始值
+set @@auto_increment_increment = 2;  -- 步长
+```
+
 
 
 
