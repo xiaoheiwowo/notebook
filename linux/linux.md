@@ -225,6 +225,36 @@ centos网络相关设置文件 /etc/sysconfig/network-scripts/ifcfg-ens33
 
 
 
+```shell
+更换中科大更新源
+# 更换brew.git
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+更换核心软件仓库（homebrew-core.git)
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+更换Home cask软件仓库
+cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask
+如果未找到就不执行git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+更换Home Bottles源
+bash终端:echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
+zhs终端:echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.zshrc
+source ~/.zsh
+重置默认源
+重置brew.git
+cd "$(brew --repo)"
+git remote set-url origin https://github.com/Homebrew/brew.git
+重置核心软件仓库
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+重置Homebrew cask软件仓库
+cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask
+git remote set-url origin https://github.com/Homebrew/homebrew-cask
+# 重置Homebrew Bottles源
+# 注释掉终端配置文件里的有关Homebrew Bottles即可恢复官方源。 重启终端或重读配置文件
+```
+
 
 
 
