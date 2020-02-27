@@ -45,6 +45,25 @@ ps -ef |grep redis
 -f 　显示UID,PPIP,C与STIME栏位。 
 ```
 
+```shell
+# grep '^root$'
+-A 10 # 后10行
+-B 10 # 前10行
+-C 10 # 前后10行
+-n # 行号
+-i # 大小写敏感
+-v # 排除
+--color=auto # 高亮
+# cut 列截取
+-d: # 指定分隔符 
+-f # 截取列
+-c # 字符截取
+```
+
+
+
+
+
 ```sh
 # scp 传输文件
 scp -r local_folder remote_username@remote_ip:remote_folder  
@@ -256,6 +275,12 @@ git remote set-url origin https://github.com/Homebrew/homebrew-cask
 ```
 
 
+
+```
+vim -b file # 二进制格式打开
+:%!xxd -g 1 # 切换显示 
+:%!xxd -r 返回文本显示
+```
 
 
 

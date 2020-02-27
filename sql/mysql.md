@@ -57,15 +57,18 @@ CREATE DATABASE shop;
 DROP DATABASE shop;
 USE shop;
 CREATE TABLE user(
-  id int unsigned not null auto_increment  comment '用户id',
-  user_name varchar(20) not null conmment '用户名',
-  email varchar(50) not null comment  '',
-  age tinyint unsigned not null ,
-  fee decimal(10, 2) not null  default 0.00 ,
-  time timestamp not null ,
-  primary key(id),
-  列名，列类型，其他关键词
-	...);
+  	id int unsigned not null auto_increment  comment '用户id',
+  	user_name varchar(20) not null conmment '用户名',
+  	email varchar(50) not null comment  '',
+  	age tinyint unsigned not null ,
+  	fee decimal(10, 2) not null  default 0.00 ,
+  	time timestamp not null ,
+  	# 列名，列类型，其他关键词
+  	primary key(id),
+  	key `idx_user_name` (`user_name`),
+    unique key `idx_email` (`email`),
+    CONSTRAINT `user_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `meeting_room` (`object_id`),
+	);
 SHOW TABLES;
 DESC user; 查看表结构
 SHOW CREATE TABLE user;查看新建语句
@@ -310,7 +313,28 @@ like '%aaa%'不会使用索引而like "aaa%"可以使用索引
 # 设置主键自增
 set @@auto_increment_offset = 1;     -- 起始值
 set @@auto_increment_increment = 2;  -- 步长
+
+# 禁用外键检查
+SET @@foreign_key_checks=0;
+# 启用外键检查
+SET @@foreign_key_checks=1;
+
+
 ```
+
+```mysql
+## 重新索引k
+alter table T drop index k; 
+alter table T add index(k);
+## 重建主键索引
+alter table T drop primary key; 
+alter table T add primary key(id);
+上面的 重建主键的过程不合理。不论是删除主键还是创建主键，都会将整个表重建。所以连着执行这两个语句的话，第一个语句就白做了。这两个语句，可以用这个语句代替 ： alter table T engine=InnoDB;
+```
+
+
+
+
 
 ##《MySQL技术内幕 - InnoDB存储引擎》
 
