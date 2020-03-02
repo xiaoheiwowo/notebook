@@ -22,6 +22,8 @@ extract 提取
 authorization 授权
 instructor 指导书 指导员 教员
 vehicle 车辆
+candidate 候选人
+qualified 有资格的
 
 
 
