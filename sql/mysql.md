@@ -234,7 +234,14 @@ mysql -uroot -p shop < sql.sql
     set profiling= on;
     show profiles;
     show profile for query ID;
-    explain
+    
+    ```sql
+    // explain
+    explain select * from table where id=1;
+    ```
+    
+    
+    
 - 建索引加快查询
 
 - 缓存
@@ -331,6 +338,8 @@ alter table T drop primary key;
 alter table T add primary key(id);
 上面的 重建主键的过程不合理。不论是删除主键还是创建主键，都会将整个表重建。所以连着执行这两个语句的话，第一个语句就白做了。这两个语句，可以用这个语句代替 ： alter table T engine=InnoDB;
 ```
+
+
 
 
 
