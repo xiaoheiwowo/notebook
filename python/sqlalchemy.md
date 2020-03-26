@@ -240,3 +240,34 @@ select 返回查询结果
 https://www.jianshu.com/p/8427da16729a
 ```
 
+
+
+```python
+class AbsCheckApply(Model):
+	__abstract__ = True
+
+# 分表
+class CheckApplyShard(object):
+    _mapper = {}
+
+    @staticmethod
+    def model(enterprise_id):
+        if len(enterprise_id) <= 1:
+            table_index = "00"
+        else:
+            if enterprise_id == "-1":
+                table_index = "00"
+            else:
+                table_index = enterprise_id[-2:]
+        class_name = "ZCheckApply_%s" % table_index
+
+        ModelClass = CheckApplyShard._mapper.get(class_name, None)
+        if ModelClass is None:
+            ModelClass = type(class_name, (AbsCheckApply, JSONBaseMixin,), {
+            })
+            CheckApplyShard._mapper[class_name] = ModelClass
+
+        return ModelClass
+
+```
+
