@@ -301,7 +301,7 @@ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 # CASE WHEN
 UPDATE Personnel
 SET salary =
-CASE WHEN salary >= 5000										THEN salary * 0.9
+CASE WHEN salary >= 5000 THEN salary * 0.9
      WHEN salary >= 2000 AND salary < 4600	THEN salary * 1.15
 ELSE salary END; 
 ```
@@ -341,7 +341,21 @@ alter table T add primary key(id);
 
 
 
+## delete、drop、truncate区别
 
+- truncate 和 delete只删除数据，不删除表结构 ,drop删除表结构，并且释放所占的空间。
+- **删除数据的速度，**drop> truncate > delete
+- delete属于DML语言，需要事务管理，commit之后才能生效。drop和truncate属于DDL语言，操作立刻生效，不可回滚。
+- **使用场合：**
+    - 当你不再需要该表时， 用 drop;
+    - 当你仍要保留该表，但要删除所有记录时， 用 truncate;
+    - 当你要删除部分记录时（always with a where clause), 用 delete.
+
+ 
+
+**注意：** 对于**有主外键关系的表**，不能使用truncate而应该**使用不带where子句的delete语句**，由于truncate不记录在日志中，不能够激活触发器
+
+ 
 
 
 
@@ -350,4 +364,14 @@ alter table T add primary key(id);
 - 数据库和数据库实例的区别
     - 数据库：文件（磁盘上的，或内存中的）
     - 数据库实例：后台线程和一个共享内存区
+
+
+
+
+
+非叶节点的指针指向子节点的页，先将整页读到内存在找到要的节点，页的大小决定树的容量，默认2000w左右，可以改页大小
+
+用主键聚集索引B+树维护数据行的物理存储
+
+辅助索引B+树叶节点存数据行的主键
 

@@ -271,3 +271,29 @@ class CheckApplyShard(object):
 
 ```
 
+```python
+# case
+def order_setting_custom_infomation(option_ids):
+    ordering = sqlalchemy.sql.expression.case(
+        {_id: index for index, _id in enumerate(option_ids)},
+        value=Options.object_id
+    )
+    options = Options.query.filter(Options.object_id.in_(option_ids)).order_by(ordering).all()
+    # options_dict = {o.object_id: o for o in options}
+    for index, option in enumerate(options):
+        option.order = index
+    return usually()
+
+```
+
+```python
+# update 语句
+Options.query.filter(Options.object_id == option_id).update(
+        {Options.is_use: True if state != 0 else False},
+        synchronize_session=False
+    )
+# delete语句
+current_setting.options_query.filter(Options.object_id == option_id).delete(synchronize_session=False)
+
+```
+
