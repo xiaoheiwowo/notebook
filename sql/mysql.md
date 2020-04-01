@@ -357,6 +357,11 @@ alter table T add primary key(id);
 
  
 
+CASCADE：父表delete、update的时候，子表会delete、update掉关联记录；
+SET NULL：父表delete、update的时候，子表会将关联记录的外键字段所在列设为null，所以注意在设计子表时外键不能设为not null；
+RESTRICT：如果想要删除父表的记录时，而在子表中有关联该父表的记录，则不允许删除父表中的记录；
+NO ACTION：同 RESTRICT，也是首先先检查外键；
+
 
 
 ##《MySQL技术内幕 - InnoDB存储引擎》
