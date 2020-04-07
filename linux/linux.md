@@ -227,11 +227,16 @@ sudo pacman -Syyu
 
 ```shell
 awk [options] "pattern {action}" file
-
+awk -F: '/root/ {print $1}'  /etc/passwd
 # 字段，字符分隔符FS，记录，字段数量NF，记录数量NR，记录分隔符RS, 输出字段分隔符OFS, 输出记录分隔符ORS
 root:x:0:0:root:/root:/bin/bash \n
 
 awk -F ':[<' '{ NR % 2 == 1 }  {print NR ") " toupper($1)}' /etc/passwd
+```
+
+```
+wc -l 统计行数
+awk -F: '/root/ {print $1}'  /etc/passwd | wc -l
 ```
 
 
