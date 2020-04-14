@@ -57,15 +57,18 @@ CREATE DATABASE shop;
 DROP DATABASE shop;
 USE shop;
 CREATE TABLE user(
-  id int unsigned not null auto_increment  comment '用户id',
-  user_name varchar(20) not null conmment '用户名',
-  email varchar(50) not null comment  '',
-  age tinyint unsigned not null ,
-  fee decimal(10, 2) not null  default 0.00 ,
-  time timestamp not null ,
-  primary key(id),
-  列名，列类型，其他关键词
-	...);
+  	id int unsigned not null auto_increment  comment '用户id',
+  	user_name varchar(20) not null conmment '用户名',
+  	email varchar(50) not null comment  '',
+  	age tinyint unsigned not null ,
+  	fee decimal(10, 2) not null  default 0.00 ,
+  	time timestamp not null ,
+  	# 列名，列类型，其他关键词
+  	primary key(id),
+  	key `idx_user_name` (`user_name`),
+    unique key `idx_email` (`email`),
+    CONSTRAINT `user_ibfk_1` FOREIGN KEY (`room_id`) REFERENCES `meeting_room` (`object_id`),
+	);
 SHOW TABLES;
 DESC user; 查看表结构
 SHOW CREATE TABLE user;查看新建语句
@@ -94,6 +97,7 @@ TRUNCATE user; # 清空表,id从1开始
 (SHOW VARIABLES LIKE '%char%';
 SET NAMES gbk; 临时改编码
 # 永久改配置文件 utf8 -> gbk)
+
 ```
 
 
@@ -138,6 +142,15 @@ select* from table；
 连接查询, where inner join where /on ///left join on /// right join on
 联合查询union all 连接两条select语句，两个查询语句字段数量必须相同
 子查询
+SELECT newapply.object_id FROM newapply LEFT JOIN meeting_room ON newapply.room_id = meeting_room.object_id;
+```
+
+
+
+```mysql
+# Json 
+update templatebase set form_info = json_set(form_info,"$[2].title_first","会议主题") where types=3;
+SELECT form_info->"$[2].title_first" from templatebase WHERE types = 3;
 ```
 
 
@@ -221,7 +234,14 @@ mysql -uroot -p shop < sql.sql
     set profiling= on;
     show profiles;
     show profile for query ID;
-    explain
+    
+    ```sql
+    // explain
+    explain select * from table where id=1;
+    ```
+    
+    
+    
 - 建索引加快查询
 
 - 缓存
@@ -281,7 +301,7 @@ dpkg -l |grep ^rc|awk '{print $2}' |sudo xargs dpkg -P
 # CASE WHEN
 UPDATE Personnel
 SET salary =
-CASE WHEN salary >= 5000										THEN salary * 0.9
+CASE WHEN salary >= 5000 THEN salary * 0.9
      WHEN salary >= 2000 AND salary < 4600	THEN salary * 1.15
 ELSE salary END; 
 ```
@@ -292,17 +312,71 @@ ELSE salary END;
 like '%aaa%'不会使用索引而like "aaa%"可以使用索引
 索引不能含有null
 索引最左匹配
-
 ```
 
 
 
+```sql
+# 设置主键自增
+set @@auto_increment_offset = 1;     -- 起始值
+set @@auto_increment_increment = 2;  -- 步长
+
+# 禁用外键检查
+SET @@foreign_key_checks=0;
+# 启用外键检查
+SET @@foreign_key_checks=1;
+
+
+```
+
+```mysql
+## 重新索引k
+alter table T drop index k; 
+alter table T add index(k);
+## 重建主键索引
+alter table T drop primary key; 
+alter table T add primary key(id);
+上面的 重建主键的过程不合理。不论是删除主键还是创建主键，都会将整个表重建。所以连着执行这两个语句的话，第一个语句就白做了。这两个语句，可以用这个语句代替 ： alter table T engine=InnoDB;
+```
+
+
+
+## delete、drop、truncate区别
+
+- truncate 和 delete只删除数据，不删除表结构 ,drop删除表结构，并且释放所占的空间。
+- **删除数据的速度，**drop> truncate > delete
+- delete属于DML语言，需要事务管理，commit之后才能生效。drop和truncate属于DDL语言，操作立刻生效，不可回滚。
+- **使用场合：**
+    - 当你不再需要该表时， 用 drop;
+    - 当你仍要保留该表，但要删除所有记录时， 用 truncate;
+    - 当你要删除部分记录时（always with a where clause), 用 delete.
+
+ 
+
+**注意：** 对于**有主外键关系的表**，不能使用truncate而应该**使用不带where子句的delete语句**，由于truncate不记录在日志中，不能够激活触发器
+
+ 
+
+CASCADE：父表delete、update的时候，子表会delete、update掉关联记录；
+SET NULL：父表delete、update的时候，子表会将关联记录的外键字段所在列设为null，所以注意在设计子表时外键不能设为not null；
+RESTRICT：如果想要删除父表的记录时，而在子表中有关联该父表的记录，则不允许删除父表中的记录；
+NO ACTION：同 RESTRICT，也是首先先检查外键；
+
+
+
+##《MySQL技术内幕 - InnoDB存储引擎》
+
+- 数据库和数据库实例的区别
+    - 数据库：文件（磁盘上的，或内存中的）
+    - 数据库实例：后台线程和一个共享内存区
 
 
 
 
 
+非叶节点的指针指向子节点的页，先将整页读到内存在找到要的节点，页的大小决定树的容量，默认2000w左右，可以改页大小
 
+用主键聚集索引B+树维护数据行的物理存储
 
-
+辅助索引B+树叶节点存数据行的主键
 

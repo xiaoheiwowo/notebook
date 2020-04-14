@@ -240,3 +240,60 @@ select 返回查询结果
 https://www.jianshu.com/p/8427da16729a
 ```
 
+
+
+```python
+class AbsCheckApply(Model):
+	__abstract__ = True
+
+# 分表
+class CheckApplyShard(object):
+    _mapper = {}
+
+    @staticmethod
+    def model(enterprise_id):
+        if len(enterprise_id) <= 1:
+            table_index = "00"
+        else:
+            if enterprise_id == "-1":
+                table_index = "00"
+            else:
+                table_index = enterprise_id[-2:]
+        class_name = "ZCheckApply_%s" % table_index
+
+        ModelClass = CheckApplyShard._mapper.get(class_name, None)
+        if ModelClass is None:
+            ModelClass = type(class_name, (AbsCheckApply, JSONBaseMixin,), {
+            })
+            CheckApplyShard._mapper[class_name] = ModelClass
+
+        return ModelClass
+
+```
+
+```python
+# case
+def order_setting_custom_infomation(option_ids):
+    ordering = sqlalchemy.sql.expression.case(
+        {_id: index for index, _id in enumerate(option_ids)},
+        value=Options.object_id
+    )
+    options = Options.query.filter(Options.object_id.in_(option_ids)).order_by(ordering).all()
+    # options_dict = {o.object_id: o for o in options}
+    for index, option in enumerate(options):
+        option.order = index
+    return usually()
+
+```
+
+```python
+# update 语句
+Options.query.filter(Options.object_id == option_id).update(
+        {Options.is_use: True if state != 0 else False},
+        synchronize_session=False
+    )
+# delete语句
+current_setting.options_query.filter(Options.object_id == option_id).delete(synchronize_session=False)
+
+```
+

@@ -45,6 +45,25 @@ ps -ef |grep redis
 -f 　显示UID,PPIP,C与STIME栏位。 
 ```
 
+```shell
+# grep '^root$'
+-A 10 # 后10行
+-B 10 # 前10行
+-C 10 # 前后10行
+-n # 行号
+-i # 大小写敏感
+-v # 排除
+--color=auto # 高亮
+# cut 列截取
+-d: # 指定分隔符 
+-f # 截取列
+-c # 字符截取
+```
+
+
+
+
+
 ```sh
 # scp 传输文件
 scp -r local_folder remote_username@remote_ip:remote_folder  
@@ -208,11 +227,16 @@ sudo pacman -Syyu
 
 ```shell
 awk [options] "pattern {action}" file
-
+awk -F: '/root/ {print $1}'  /etc/passwd
 # 字段，字符分隔符FS，记录，字段数量NF，记录数量NR，记录分隔符RS, 输出字段分隔符OFS, 输出记录分隔符ORS
 root:x:0:0:root:/root:/bin/bash \n
 
 awk -F ':[<' '{ NR % 2 == 1 }  {print NR ") " toupper($1)}' /etc/passwd
+```
+
+```
+wc -l 统计行数
+awk -F: '/root/ {print $1}'  /etc/passwd | wc -l
 ```
 
 
@@ -225,7 +249,43 @@ centos网络相关设置文件 /etc/sysconfig/network-scripts/ifcfg-ens33
 
 
 
+```shell
+更换中科大更新源
+# 更换brew.git
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+更换核心软件仓库（homebrew-core.git)
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+更换Home cask软件仓库
+cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask
+如果未找到就不执行git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-cask.git
+更换Home Bottles源
+bash终端:echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+source ~/.bash_profile
+zhs终端:echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.zshrc
+source ~/.zsh
+重置默认源
+重置brew.git
+cd "$(brew --repo)"
+git remote set-url origin https://github.com/Homebrew/brew.git
+重置核心软件仓库
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+重置Homebrew cask软件仓库
+cd "$(brew --repo)"/Library/Taps/homebrew/homebrew-cask
+git remote set-url origin https://github.com/Homebrew/homebrew-cask
+# 重置Homebrew Bottles源
+# 注释掉终端配置文件里的有关Homebrew Bottles即可恢复官方源。 重启终端或重读配置文件
+```
 
+
+
+```
+vim -b file # 二进制格式打开
+:%!xxd -g 1 # 切换显示 
+:%!xxd -r 返回文本显示
+```
 
 
 

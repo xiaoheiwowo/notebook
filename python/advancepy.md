@@ -212,6 +212,7 @@ l.__dict__ # 异常
 - super函数
     - 调用父类的方法
     - mro继承顺序
+    - 
 - drf中对多继承使用的经验 mixin
 - with语句
     - 实现魔法方法 
@@ -479,11 +480,23 @@ if __name__ == '__main__':
     - 同一时刻只有一个线程运行在一个cpu上执行字节码，无法将多个线程放到多个cpu上运行
     - 执行一个线程的字节码一定数量或时间释放，使其他线程可以运行
     - IO操作释放，sleep释放
+    
 - 多线程
+
+    - Thread
+    - 主线程退出后子线程也被销毁 可使用setDaemon设置为守护线程
+    - 主线程等待子线程完成 thread.join()，阻塞等待
+
+    
+
 - 线程通信 Queue
+
 - 线程同步 Lock、RLock、semaphores、Condition
+
 - consurrent线程池编码
+
 - 多进程编程 multiprocessing
+
 - 进程通信
 
 
