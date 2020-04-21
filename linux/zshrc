@@ -74,6 +74,7 @@ plugins=(
     zsh-autosuggestions
     zsh-syntax-highlighting
     colored-man-pages
+    sublime
 )
 source $ZSH/oh-my-zsh.sh
 
