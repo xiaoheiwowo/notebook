@@ -100,6 +100,15 @@ SET NAMES gbk; 临时改编码
 
 ```
 
+```mysql
+# MERGE语句
+MERGE INTO target as t USING source as s ON t.id=s.id # 合并表s到t
+WHEN MATCHED THEN UPDATE SET t.a = s.b # 当匹配到
+WHEN NOT MATCHED THEN INSERT VALUES(s.id, s.b) # 当目标表中没有
+WHEN NOT MATCHED BY SOURCE THEN DELETE # 当目标表中有,源表中没有
+OUTPUT $ACTION AS action, ...
+```
+
 
 
 ### DCL
@@ -269,6 +278,8 @@ mysql -uroot -p shop < sql.sql
 - 架构 负载均衡 高可用 易扩展
 
 
+
+优化数据库: 开启缓存 查询字段建索引 定期重建索引 读写分离 分库分表
 
 ## 配置
 
