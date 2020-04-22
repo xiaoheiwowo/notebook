@@ -262,3 +262,14 @@ CMD ["nginx"]
 
 
 
+## docker的四种网络模式
+
+https://www.jianshu.com/p/22a7032bb7bd
+
+
+
+- host 和宿主机共享 Network Namespace
+- container 和另一个容器共享 Network Namespace
+- none 没有网络
+- bridge 端口映射
+

@@ -53,4 +53,21 @@ async function a_fun() {
 a_fun()
 ```
 
+ ```
+# 阻塞
+read() # 一直等
+
+# 非阻塞 用户态遍历
+for fd in fds:
+	read() # 不等
+	
+# select
+select() select调用内部遍历所有fd 内核态
+
+# epoll
+epoll_create()  # 创建epoll
+epoll_ctl()   # 注册回调,将fd与事件关联
+epoll_wait()  # 等待事件
+
+ ```
 
