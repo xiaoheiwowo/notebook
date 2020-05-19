@@ -391,3 +391,57 @@ NO ACTION：同 RESTRICT，也是首先先检查外键；
 
 辅助索引B+树叶节点存数据行的主键
 
+
+
+### profile
+
+```
+set profiling=1;
+show profiles;
+show profile all for query 3;
+横向栏意义
++----------------------+----------+----------+------------+
+"Status": "query end", 状态
+"Duration": "1.751142", 持续时间
+"CPU_user": "0.008999", cpu用户
+"CPU_system": "0.003999", cpu系统
+"Context_voluntary": "98", 上下文主动切换
+"Context_involuntary": "0", 上下文被动切换
+"Block_ops_in": "8", 阻塞的输入操作
+"Block_ops_out": "32", 阻塞的输出操作
+"Messages_sent": "0", 消息发出
+"Messages_received": "0", 消息接受
+"Page_faults_major": "0", 主分页错误
+"Page_faults_minor": "0", 次分页错误
+"Swaps": "0", 交换次数
+"Source_function": "mysql_execute_command", 源功能
+"Source_file": "sql_parse.cc", 源文件
+"Source_line": "4465" 源代码行
++----------------------+----------+----------+------------+
+纵向栏意义
++----------------------+----------+----------+------------+
+starting：开始
+checking permissions：检查权限
+Opening tables：打开表
+init ： 初始化
+System lock ：系统锁
+optimizing ： 优化
+statistics ： 统计
+preparing ：准备
+executing ：执行
+Sending data ：发送数据
+Sorting result ：排序
+end ：结束
+query end ：查询 结束
+closing tables ： 关闭表 ／去除TMP 表
+freeing items ： 释放物品
+cleaning up ：清理
++----------------------+----------+----------+------------+
+```
+
+
+
+### performance_schema
+
+
+
