@@ -29,7 +29,7 @@ def index():
 	- Map([<Rule '/' (HEAD, OPTIONS, GET) -> index>,])
 - view_functions: 关联endpoint和视图函数
 	- {'index': <function index at 0x10eaf9e60>}
-		
+	
 - 添加url的几种方法
 ```python
 @app.route()
@@ -40,7 +40,7 @@ app.add_url_rule("/class_view", Class.as_view("class"))
 
 - 通过 Map 我们就可以实现动态路由的功能。这里我们注意到 Map 类先建立了 url 到 endpoint 的映射，而不是直接映射到函数，这是为什么呢？
 - 主要是两个原因：
-	- 一是为了实现动态路由功能，
+	- 一是为了实现动态路由功能，
 	- 二是为不同的 url 映射到同一个视图函数提供了便利。
 - 而 view_functions 是一个字典，它负责建立 endpoint 和视图函数之间的映射关系。eg: url_for(endpoint)
 

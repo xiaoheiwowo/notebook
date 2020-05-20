@@ -279,6 +279,13 @@ git remote set-url origin https://github.com/Homebrew/homebrew-cask
 # 注释掉终端配置文件里的有关Homebrew Bottles即可恢复官方源。 重启终端或重读配置文件
 ```
 
+```shell
+# mac 启动ssh服务
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+sudo launchctl list | grep ssh
+```
+
 
 
 ```
