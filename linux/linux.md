@@ -284,6 +284,7 @@ git remote set-url origin https://github.com/Homebrew/homebrew-cask
 sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
 sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
 sudo launchctl list | grep ssh
+# 或者从设置里设置远程功能
 ```
 
 
@@ -294,9 +295,17 @@ vim -b file # 二进制格式打开
 :%!xxd -r 返回文本显示
 ```
 
-
-
 ```shell
 ls -R # 递归
 ```
+
+```shell
+python3 -u test.py 2&>1 >> log
+```
+
+
+
+
+
+
 

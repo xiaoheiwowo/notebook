@@ -1,5 +1,7 @@
 # Git常用命令
 
+![](https://pic1.zhimg.com/v2-e9edaef2103785c164876ff8b19b45ac_b.png)
+
 ## config
 
 ```sh
@@ -19,11 +21,11 @@ git credential-manager uninstall
 
 
 
-![](https://camo.githubusercontent.com/bd0a58ffa8611b5368ad692d6d7e1d5fdbaa0877/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f62617369632d75736167652e7376673f73616e6974697a653d74727565)
+![](/Users/xiaohei/private/notebook/pic/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f62617369632d75736167652e7376673f73616e6974697a653d74727565.svg)
 
 
 
-![](https://camo.githubusercontent.com/fb62044587c612ea33b5edd337f1a31cca9cabf7/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f72657365742d636f6d6d69742e7376673f73616e6974697a653d74727565)
+![](../pic/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f72657365742d636f6d6d69742e7376673f73616e6974697a653d74727565.svg)
 
 ```shell
 git checkout -- <file name> # 撤销工作区的修改
@@ -39,11 +41,11 @@ git rm index.html --cached # 使用--cached 表示只删除缓存区中的内容
 
 
 
-![](https://camo.githubusercontent.com/8b3b13335fd1f6cccf8a62c0fd326cce76662b5a/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f62617369632d75736167652d322e7376673f73616e6974697a653d74727565)
+![](../pic/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f62617369632d75736167652e7376673f73616e6974697a653d74727565.svg)
 
 ## diff
 
-![](https://camo.githubusercontent.com/d173ec98e7058e676351a0ea5dacc269ce7f7a11/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f646966662e7376673f73616e6974697a653d74727565)
+![](../pic/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f646966662e7376673f73616e6974697a653d74727565.svg)
 
 ```shell
 git diff 						# 暂存区和工作区
@@ -55,7 +57,7 @@ git diff HEAD/master 		# 历史区和工作区（修改）
 
 ## Merge 三方合并
 
-![](https://camo.githubusercontent.com/23e00dc051e1609d93ec7d8094cff6cf23cdd4bb/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f6d657267652e7376673f73616e6974697a653d74727565)
+![](../pic/687474703a2f2f6d61726b6c6f6461746f2e6769746875622e696f2f76697375616c2d6769742d67756964652f6d657267652e7376673f73616e6974697a653d74727565.svg)
 
 ## other
 
@@ -121,8 +123,8 @@ git log --oneline | wc -l
 
 4.根据用户名统计
 
-```
-git log --author="username" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
+```shell
+git log --author="liupengyu" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }' -
 ```
 
 5.根据时间段统计 
@@ -133,7 +135,7 @@ git log --since=2018-01-01 --until=2018-12-31 --pretty=tformat: --numstat | awk 
 
 6.统计每个人的增删行数
 
-```
+```shell
 git log --format='%aN' | sort -u | while read name; do echo -en "$name\t"; git log --author="$name" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s ", add, subs, loc }' -; done
 ```
 

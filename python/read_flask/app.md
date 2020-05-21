@@ -46,3 +46,4 @@ app.add_url_rule("/class_view", Class.as_view("class"))
 
 
 ## 请求分发 dispatch_request
+
