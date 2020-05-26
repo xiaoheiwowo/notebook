@@ -24,6 +24,8 @@ instructor 指导书 指导员 教员
 vehicle 车辆
 candidate 候选人
 qualified 有资格的
+properly 正确的
+correspond 相一致 符合 类似 相当于 通信(correspondence, correspondent)
 
 
 
