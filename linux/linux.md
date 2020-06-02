@@ -86,6 +86,13 @@ mount -t ntfs-3g /dev/sda1 /home/shares/public/disk1
 
 ```sh
 kill -9 4394
+HUP 1 终端断线
+INT 2 中断（同 Ctrl + C）
+QUIT 3 退出（同 Ctrl + \）
+TERM 15 终止 默认
+KILL 9 强制终止
+CONT 18 继续（与STOP相反， fg/bg命令）
+STOP 19 暂停（同 Ctrl + Z）
 # kill就是给某个进程id发送了一个信号。默认发送的信号是SIGTERM，
 # 而kill -9发送的信号是SIGKILL，即exit。exit信号不会被系统阻塞，
 # 所以kill -9能顺利杀掉进程。当然你也可以使用kill发送其他信号给进程。

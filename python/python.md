@@ -12,6 +12,7 @@ trusted-host = 172.27.106.3
 # 打包上传
 python3 setup.py sdist upload -r <server-url>
 server-url=http://221.238.157.245:8002
+python3 setup.py sdist upload -r http://pip.idaka.vip:8002
 # 安装
 pip install <包名>
 ```
