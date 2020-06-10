@@ -297,3 +297,13 @@ current_setting.options_query.filter(Options.object_id == option_id).delete(sync
 
 ```
 
+
+
+```
+from sqlalchemy import tuple_
+Employee.query.filter(tuple_(Employee.enterprise_id, Employee.object_id).in_([("1", 28), ("1", 29)])).all()
+
+
+Employee.query.get(28)
+```
+
