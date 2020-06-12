@@ -307,3 +307,12 @@ Employee.query.filter(tuple_(Employee.enterprise_id, Employee.object_id).in_([("
 Employee.query.get(28)
 ```
 
+```
+users_updates = [{"_id": 1, "new_process_id": 2}]
+from sqlalchemy import bindparam
+stmt1 = ApproveUser.__table__.update(). \
+where(ApproveUser.__table__.c.object_id == bindparam('_id')). \
+values(process_id=bindparam('new_process_id'))
+db.session.execute(stmt1, users_updates)
+```
+
