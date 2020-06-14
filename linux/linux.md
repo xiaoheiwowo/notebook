@@ -314,5 +314,12 @@ python3 -u test.py 2&>1 >> log
 
 
 
+```
+mac 忽略更新
+1、屏蔽系统更新：sudo softwareupdate --ignore "macOS Catalina"
+2、还原系统更新：sudo softwareupdate --reset-ignored
+3、去除更新角标代码：defaults write com.apple.systempreferences AttentionPrefBundleIDs 0
+```
+
 
 
