@@ -448,6 +448,14 @@ cleaning up ：清理
 
 
 
+```
+mysqlbinlog --no-defaults master68.000035
+flush logs
+mysql > show binlog master68.000044 
+```
+
+
+
 ### performance_schema
 
 

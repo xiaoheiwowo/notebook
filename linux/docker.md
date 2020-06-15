@@ -273,3 +273,30 @@ https://www.jianshu.com/p/22a7032bb7bd
 - none 没有网络
 - bridge 端口映射
 
+
+
+
+
+## ZOOKEEPER
+
+```SH
+#创建宿主机挂载目录
+mkdir -p $HOME/service/zookeeper/conf
+mkdir -p $HOME/service/zookeeper/data
+mkdir -p $HOME/service/zookeeper/log
+
+docker run -d --name zk --restart always zookeeper
+
+#把容器中的配置文件复制出来
+docker cp -a zk:/conf/zoo.cfg $HOME/service/zookeeper/conf/zoo.cfg
+
+docker stop zk
+docker rm zk
+docker run -d --name zk --restart always \
+-p 2181:2181 -p 2888:2888 -p 3888:3888 \
+-v $HOME/service/zookeeper/conf/zoo.cfg:/conf/zoo.cfg \
+-v $HOME/service/zookeeper/data:/data \
+-v $HOME/service/zookeeper/log:/datalog \
+zookeeper
+```
+
