@@ -93,7 +93,7 @@ go run -gcflags "-m -l" main.go  // 分析变量逃逸
 len(string) // 返回int 字符串ascii字符个数/字节长度
 RuneCountInString() // 返回字符个数
 
-// 遍历 / ASCII字节遍历
+// range遍历 / ASCII字节遍历
 str = "hello, 世界"
 for _, s := range str {
   fmt.Printf("字符:%c, 码值:%d\n", s, s)
@@ -103,4 +103,36 @@ for _, s := range str {
 pos = strings.Index(str, ",")  // 反向LastIndex
 fmt.Println(pos, str[pos:])
 ```
+
+## 切片/映射
+
+```go
+make([]T, length, capacity) // len, cap
+s := arr[:]
+var slice = make([]string, 3)
+
+// 添加元素
+append(slice, "ok")
+// 删除元素
+append(slice[:2],  slice[2+1:]...)
+// 复制
+copy(new_slice, slice)
+
+m := make(map[string]string)
+m["a"] = "a"
+val, ok := m["b"]
+delete(m, "a")
+```
+
+## 指针
+
+```go
+val pr = *int
+a := []int{1, 2, 3}
+pr2 := $a
+```
+
+
+
+
 

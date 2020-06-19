@@ -198,3 +198,9 @@ nosetests -w 	# 目录：指定一个目录运行测试
 res = (true_res, false_res)[condition]
 ```
 
+
+
+```
+concurrent.futures.precess.ProcessPoolExecutor
+```
+
