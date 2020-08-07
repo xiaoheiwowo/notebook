@@ -11,12 +11,11 @@
 10. elb 启动 server01
 ```
 
-```
-rG7L$Q3#BV1O
-M5#fkk&8j5xR$aJ aws
+```shell
+make bl && mv bin mars && scp mars bytepower-dev-08: && rm mars && ssh -t bytepower-dev-08 "sudo cp /var/mars/mars /var/mars-prize/mars_$(date +%s) && sudo cp $HOME/mars /var/mars && sudo supervisorctl restart mars"
 ```
 
 ```shell
-make bl && mv bin mars && scp mars bytepower-dev-08: && rm mars && ssh -t bytepower-dev-08 "sudo mv /var/mars-prize/mars /var/mars-prize/mars_bak && sudo mv mars /var/mars-prize && sudo supervisorctl restart mars-prize"
+make bl && mv bin mars && scp mars mars-gray-service-01: && rm mars && ssh -t mars-gray-service-01 "sudo cp /var/mars/mars /var/mars/mars_$(date +%s) && sudo cp $HOME/mars /var/mars && sudo supervisorctl restart mars"
 ```
 
