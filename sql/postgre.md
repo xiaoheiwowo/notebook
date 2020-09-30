@@ -30,11 +30,11 @@ COPY mytable_restored FROM '/tmp/mytable.dmp';
 
 ```
 nohup sudo -u postgres psql -h 
-nohup sudo -u postgres pg_dump -Fc -a -h 
+nohup sudo pg_dump -Fc -a -h host -d dbname -U username -t tablename > xxx.dump
 
 # 并行导出
 sudo pg_dump -Fd -j20 -a
-nohup sudo -u postgres pg_restore -Fc -a -h 
+nohup sudo pg_restore -Fc -a -h 
 ```
 
 ```
@@ -50,5 +50,9 @@ pg_table_size(regclass)	bigint	指定表OID或表名的表使用的磁盘空间�
 pg_tablespace_size(oid)	bigint	指定OID的表空间使用的磁盘空间
 pg_tablespace_size(name)	bigint	指定名称的表空间使用的磁盘空间
 pg_total_relation_size(regclass)	bigint	指定表OID或表名使用的总磁盘空间，包括所有索引和TOAST数据
+```
+
+```sql
+select name, score, course, rank() over(partition by course order by score desc) as rank from jinbo.student;
 ```
 

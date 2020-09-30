@@ -11,6 +11,11 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ```sh
 # 将本机公钥传到服务器，
 ssh-copy-id (-i .ssh/id_rsa.pub -p 22) ubuntu@49.234.121.203
+
+ssh -t root@host 'ls'
+
+
+
 ```
 
 ```sh
@@ -62,7 +67,15 @@ ps -ef |grep redis
 
 
 
+```
+# 时间戳
+$(date +%s)
+```
 
+```
+# vim 替换部分行
+.,+2s/abc/helloworld/g
+```
 
 ```sh
 # scp 传输文件
@@ -108,6 +121,8 @@ sudo fc-cache -fv
 查看端口状态 lsof -i tcp:23232
  lsof -i:5000
 查看端口状态 ss
+
+sudo ngrep -d any -q -Wbyline . port 8125
 ```
 
 ```sh
