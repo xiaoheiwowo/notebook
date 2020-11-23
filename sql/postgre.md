@@ -56,3 +56,23 @@ pg_total_relation_size(regclass)	bigint	指定表OID或表名使用的总磁盘�
 select name, score, course, rank() over(partition by course order by score desc) as rank from jinbo.student;
 ```
 
+```sql
+select floor(extract(epoch from now()))||array_to_string(ARRAY(SELECT chr((65 + round(random() * 25)) :: integer) FROM generate_series(1,4)), '');
+
+create function f_random_str(length INTEGER) returns character varying
+    LANGUAGE plpgsql
+AS $$
+DECLARE
+    result varchar(50);
+BEGIN
+    SELECT array_to_string(ARRAY(SELECT chr((65 + round(random() * 25)) :: integer)
+                                 FROM generate_series(1,length)), '') INTO result;
+    return result;
+END
+$$;
+
+select f_random_str(4);
+
+SELECT array_to_string(ARRAY(SELECT chr((65 + round(random() * 25)) :: integer) FROM generate_series(1,4)), '');
+
+```

@@ -13,9 +13,6 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
 ssh-copy-id (-i .ssh/id_rsa.pub -p 22) ubuntu@49.234.121.203
 
 ssh -t root@host 'ls'
-
-
-
 ```
 
 ```sh
@@ -64,8 +61,6 @@ ps -ef |grep redis
 -f # 截取列
 -c # 字符截取
 ```
-
-
 
 ```
 # 时间戳
