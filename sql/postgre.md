@@ -76,3 +76,26 @@ select f_random_str(4);
 SELECT array_to_string(ARRAY(SELECT chr((65 + round(random() * 25)) :: integer) FROM generate_series(1,4)), '');
 
 ```
+
+```sql
+-- 查看 vacuum 状态
+SELECT schemaname, relname, n_live_tup, n_dead_tup, last_autovacuum
+FROM pg_stat_all_tables
+ORDER BY n_dead_tup
+    / (n_live_tup
+       * current_setting('autovacuum_vacuum_scale_factor')::float8
+          + current_setting('autovacuum_vacuum_threshold')::float8)
+     DESC
+LIMIT 10;
+
+```
+
+```
+psql -h host -U user -d db -c 'select * from table limit 10' -o h.csv -A -F ","
+```
+
+```
+select pg_terminate_backend(a.pid) from (select pid from pg_stat_activity where datname = 'app_mars' and app
+ lication_name!='pgcli') a;
+```
+
