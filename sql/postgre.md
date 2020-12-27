@@ -99,3 +99,8 @@ select pg_terminate_backend(a.pid) from (select pid from pg_stat_activity where 
  lication_name!='pgcli') a;
 ```
 
+```
+SELECT * FROM pg_locks pl LEFT JOIN pg_stat_activity psa
+    ON pl.pid = psa.pid;
+```
+
