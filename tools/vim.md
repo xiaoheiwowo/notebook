@@ -1,3 +1,16 @@
+# vim
+
+- 与缩进相关的参数有shiftwidth、tabstop、softtabstop、expandtab。
+```
+shiftwidth reindent 操作（<<和>>）时缩进的列数（这里的一列相当于一个空格）
+tabstop 一个tab键所占的列数，linux 内核代码建议每个tab占用8列
+softtabstop 敲入tab键时实际占有的列数。
+expandtab 输入tab时自动将其转化为空格
+```
+
+## vimrc
+
+```
 call plug#begin('~/.vim/plugged')
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/vim-easy-align'
@@ -89,3 +102,76 @@ set incsearch
 " 搜索时忽略大小写
 set smartcase
 " set paste
+
+
+```
+
+# vim 基本使用快捷键
+
+## 移动光标
+
+$ 行尾 ^ 行首
+\# 上个相同单词 * 下个相同单词
+% 在括号中移动
+w 下一个单词词尾 e 下个单词词首
+b 前一个单词
+X 退格
+ctrl + r 重做
+ｓ覆盖
+gg H M L G 首行　中间　末尾
+
+- + 上一行下一行
+    { } 前一个后一个空行
+    ( ) 当前句子的行首行尾
+
+## 查找
+
+f 查找 F 反向查找
+df(
+
+## 搜索
+
+/ ? 前后查找
+n N# 下一个上一个
+
+* 直接匹配到当前光标的字符串
+
+## 高级
+
+<< >> 缩进
+~ 切换大小写 title r 替换一个字符
+ZZ ZQ
+zt zb
+ctrl + F/B 翻页
+
+
+# 命令
+
+:split :vsplit
+ctrl w hjkl
+ctrl w HJKL
+ctrl w r
+ctrl -+<>
+ctrl C
+:tabnew :tabc :tabo :tabs :tabp :tabn gt 标签页操作
+
+整页翻页 ctrl-f ctrl-b
+f就是forword b就是backward
+
+翻半页
+ctrl-d ctlr-u
+d=down u=up
+
+滚一行
+ctrl-e ctrl-y
+
+替换
+
+```shell
+:% s/old/new/gc
+```
+
+覆盖插入
+s
+
+%在配对的括号之间移动
