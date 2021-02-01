@@ -144,17 +144,6 @@ ZZ ZQ
 zt zb
 ctrl + F/B 翻页
 
-
-# 命令
-
-:split :vsplit
-ctrl w hjkl
-ctrl w HJKL
-ctrl w r
-ctrl -+<>
-ctrl C
-:tabnew :tabc :tabo :tabs :tabp :tabn gt 标签页操作
-
 整页翻页 ctrl-f ctrl-b
 f就是forword b就是backward
 
@@ -175,3 +164,21 @@ ctrl-e ctrl-y
 s
 
 %在配对的括号之间移动
+
+## 多文件
+```
+:e file_name # 打开文件
+:sp/vsp/:split :vsplit # 分割窗口
+ctrl 6/:bn/bN # 多文件跳转
+:ls # 查看打开的文件
+:b num
+# 窗口间跳转
+ctrl w hjkl
+ctrl w HJKL
+ctrl w r
+ctrl ww
+ctrl -+<>
+ctrl C
+:tabnew :tabc :tabo :tabs :tabp :tabn gt 标签页操作
+
+```
