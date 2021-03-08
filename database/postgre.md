@@ -109,3 +109,8 @@ SELECT * FROM pg_locks pl LEFT JOIN pg_stat_activity psa
     ON pl.pid = psa.pid;
 ```
 
+```
+select relname as TABLE_NAME, reltuples as rowCounts from pg_class where relkind = 'r' and relnamespace = (select oid from pg_namespace where nspname='public') or
+ der by rowCounts desc;
+```
+
