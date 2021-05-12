@@ -1,1 +1,6 @@
-theme: jekyll-theme-merlot
+theme: jekyll-theme-midnight
+deploy:
+  type: git
+  repo: https://github.com/xiaoheiwowo/notebook
+  # example, https://github.com/hexojs/hexojs.github.io
+  branch: gh-pages
