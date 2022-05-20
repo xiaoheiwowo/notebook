@@ -114,3 +114,5 @@ select relname as TABLE_NAME, reltuples as rowCounts from pg_class where relkind
  der by rowCounts desc;
 ```
 
+
+

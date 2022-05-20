@@ -12,8 +12,6 @@
 
 ---
 
-
-
 阻塞IO python 默认的socket 的 connect，send，recv都是阻塞的
 
 非阻塞IO
@@ -23,8 +21,6 @@
 IO多路复用 select + callback + event_loop
 
 异步IO 由操作系统将数据从内核拷贝到用户空间
-
-
 
 ---
 
@@ -53,14 +49,14 @@ async function a_fun() {
 a_fun()
 ```
 
- ```
+```
 # 阻塞
 read() # 一直等
 
 # 非阻塞 用户态遍历
 for fd in fds:
-	read() # 不等
-	
+    read() # 不等
+
 # select
 select() select调用内部遍历所有fd 内核态
 
@@ -68,6 +64,4 @@ select() select调用内部遍历所有fd 内核态
 epoll_create()  # 创建epoll
 epoll_ctl()   # 注册回调,将fd与事件关联
 epoll_wait()  # 等待事件
-
- ```
-
+```

@@ -27,16 +27,6 @@ qualified 有资格的
 properly 正确的
 correspond 相一致 符合 类似 相当于 通信(correspondence, correspondent)
 
-
-
-
-
-
-
-
-
-
-
 boostn.提高；增长；帮助；激励;v.使增长；使兴旺；偷窃;
 collaborate vi. 合作,通敌
 account n.账，账目； 存款； 记述，报告； 理由vi.解释； 导致； 报账vt.认为； 把…视作

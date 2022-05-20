@@ -91,3 +91,21 @@ Session key 其实就是用公钥证书加密的公钥。
 - 状态机制：处理数据前判断状态
 - token机制：请求一个全局唯一token放到缓存，正常处理先检查token是否存在，最后删除token
 
+
+
+## HTTP1.0
+
+
+
+### 关键术语
+
+- request
+- response
+- resource
+
+
+
+- 主要角色 client， server， proxy， gateway
+
+
+

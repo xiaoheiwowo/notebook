@@ -35,3 +35,24 @@ https://www.jianshu.com/p/d63d9941565f
 http://www.imooc.com/article/262268
 https://www.cnblogs.com/qulianqing/p/9156112.html
 ```
+
+
+
+strace, ltrace
+
+
+
+tcpdum
+
+```
+sudo tcpdump -i lo0 port 12121
+```
+
+
+
+
+
+### lsof
+
+https://www.jianshu.com/p/a3aa6b01b2e1
+
