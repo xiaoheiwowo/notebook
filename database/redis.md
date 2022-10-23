@@ -1,5 +1,13 @@
 # Redis
 
+- [Redis](#redis)
+  - [AOF](#aof)
+  - [SDS](#sds)
+    - [要点](#要点)
+  - [链表](#链表)
+  - [字典](#字典)
+  - [跳表](#跳表)
+
 ## AOF
 
 三种策略：
@@ -39,5 +47,27 @@ struct sdshdr {
   - 兼容部分 C 字符串函数。
 
 ## 链表
+
 双向链表
+
 ## 字典
+
+- 4 个结构体: dictht, dictEntry, dict, dictType
+- 大概的关系
+
+```go
+type dict struct {
+  typ dictType
+  ht [2]dictht{
+    table dictEntry
+  }
+  rehashidx int
+}
+```
+
+- dictEntry: k,v,next 链表法解决哈希冲突，新节点放在 head, 用 sizemask 计算索引值
+- dictType: hash func，算法 MurmurHash2
+
+###
+
+## 跳表

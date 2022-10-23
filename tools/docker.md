@@ -11,10 +11,6 @@ sudo systemctl enable docker
 
 ```
 
-
-
-
-
 ## 镜像
 
 ```shell
@@ -31,6 +27,9 @@ docker rmi image_name
 # 给新镜像添加tag
 docker tag <id> <name>:<ver>
 
+# 清理
+docker system prune
+docker container prune
 ```
 
 ## 容器
@@ -41,6 +40,8 @@ docker run -itd --name=<container_name> <image_name>
 -i 交互式
 -d 后台运行，返回id
 -t 为容器重新分配一个伪终端
+
+docker run -it -d --name my_alpine alpine sh
 
 # 进入
 docker exec -it <docker name/id>
@@ -75,11 +76,7 @@ docker logs <id/name>
 
 ```
 
-
-
 ---
-
-
 
 ## Dockerfile
 
@@ -102,7 +99,7 @@ docker build -f /path/to/a/Dockerfile
 　　tag或digest是可选的，如果不使用这两个值时，会使用latest版本的基础镜像
 ```
 
--  MAINTAINER 维护者信息
+- MAINTAINER 维护者信息
 
 ```SHELL
 格式：
@@ -132,7 +129,7 @@ exec执行
 　
 ```
 
-- ADD 将本地文件添加到容器中，tar类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似wget
+- ADD 将本地文件添加到容器中，tar 类型文件会自动解压(网络压缩资源不会被解压)，可以访问网络资源，类似 wget
 
 ```shell
 格式：
@@ -145,7 +142,7 @@ exec执行
     ADD test /absoluteDir/    # 添加 "test" 到 /absoluteDir/
 ```
 
-- COPY  复制文件
+- COPY 复制文件
 - CMD 容器构建后调用
 
 ```shell
@@ -173,8 +170,6 @@ exec执行
     ENV myCat=fluffy
 ```
 
-
-
 - EXPOSE 指定与外界交互的端口
 
 ```shell
@@ -201,8 +196,8 @@ exec执行
 　　通过WORKDIR设置工作目录后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT、ADD、COPY等命令都会在该目录下执行。在使用docker run运行容器时，可以通过-w参数覆盖构建时所设置的工作目录。
 ```
 
-- USER 
-- **指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定用户。使用USER指定用户时，可以使用用户名、UID或GID，或是两者的组合。当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户**
+- USER
+- **指定运行容器时的用户名或 UID，后续的 RUN 也会使用指定用户。使用 USER 指定用户时，可以使用用户名、UID 或 GID，或是两者的组合。当服务不需要管理员权限时，可以通过该命令指定运行用户。并且可以在之前创建所需要的用户**
 
 ```shell
 格式:
@@ -218,10 +213,6 @@ exec执行
 　　使用USER指定用户后，Dockerfile中其后的命令RUN、CMD、ENTRYPOINT都将使用该用户。镜像构建完成后，通过docker run运行容器时，可以通过-u参数来覆盖所指定的用户。
 ```
 
-
-
-
-
 ### eg:
 
 ```dockerfile
@@ -232,22 +223,22 @@ exec执行
 FROM centos
 
 #MAINTAINER 维护者信息
-MAINTAINER tianfeiyu 
+MAINTAINER tianfeiyu
 
 #ENV 设置环境变量
 ENV PATH /usr/local/nginx/sbin:$PATH
 
 #ADD  文件放在当前目录下，拷过去会自动解压
-ADD nginx-1.8.0.tar.gz /usr/local/  
-ADD epel-release-latest-7.noarch.rpm /usr/local/  
+ADD nginx-1.8.0.tar.gz /usr/local/
+ADD epel-release-latest-7.noarch.rpm /usr/local/
 
-#RUN 执行以下命令 
+#RUN 执行以下命令
 RUN rpm -ivh /usr/local/epel-release-latest-7.noarch.rpm
 RUN yum install -y wget lftp gcc gcc-c++ make openssl-devel pcre-devel pcre && yum clean all
 RUN useradd -s /sbin/nologin -M www
 
 #WORKDIR 相当于cd
-WORKDIR /usr/local/nginx-1.8.0 
+WORKDIR /usr/local/nginx-1.8.0
 
 RUN ./configure --prefix=/usr/local/nginx --user=www --group=www --with-http_ssl_module --with-pcre && make && make install
 
@@ -260,22 +251,14 @@ EXPOSE 80
 CMD ["nginx"]
 ```
 
-
-
-## docker的四种网络模式
+## docker 的四种网络模式
 
 https://www.jianshu.com/p/22a7032bb7bd
-
-
 
 - host 和宿主机共享 Network Namespace
 - container 和另一个容器共享 Network Namespace
 - none 没有网络
 - bridge 端口映射
-
-
-
-
 
 ## ZOOKEEPER
 
@@ -299,4 +282,3 @@ docker run -d --name zk --restart always \
 -v $HOME/service/zookeeper/log:/datalog \
 zookeeper
 ```
-
